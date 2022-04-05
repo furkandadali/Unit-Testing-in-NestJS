@@ -7,10 +7,8 @@ export class OrdersService {
   constructor(private apiService: ApiService) {}
 
   public async getDiscount(userId: string): Promise<number> {
-
     const orders: OrderDetails[] = await this.apiService.getOrdersByUserId(userId);
     let discountLimit = 0;
-
     if(orders){
       orders.forEach((lineItem) => {
         if (lineItem.Price >= 50){
@@ -18,8 +16,6 @@ export class OrdersService {
         }
       })
     }
-
-
-    return discountLimit;
+    return discountLimit >= 20 ? 20 : discountLimit ;
   }
 }
